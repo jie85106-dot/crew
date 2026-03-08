@@ -6,12 +6,117 @@
 
 <body>
 
-<h1>crew</h1>
+<h1>odd crew</h1>
 
 <p>crew</p>
 
-<button>로그인</button>
+<button onclick="login()">로그인</button>
+
+<div id="loginDiv" style="display:none;">
+  <p>비밀번호 입력:</p>
+  <input type="password" id="pwInput" placeholder="비번">
+  <p>이름 입력:</p>
+  <input type="text" id="nameInput" placeholder="닉네임">
+  <button onclick="submitLogin()">입력</button>
+</div>
+
+<p id="welcomeMsg"></p>
+
+<script>
+function login() {
+  document.getElementById('loginDiv').style.display = 'block';
+}
+
+function submitLogin() {
+  const pw = document.getElementById('pwInput').value;
+  const name = document.getElementById('nameInput').value;
+  
+  // 여기서 비밀번호 설정
+  const correctPw = "0315"; // 원하는 비번으로 바꿀 수 있음
+
+  if(pw === correctPw && name !== "") {
+    document.getElementById('welcomeMsg').innerText = `환영합니다, ${name}님!`;
+    document.getElementById('loginDiv').style.display = 'none';
+  } else {
+    alert("비밀번호가 틀렸거나 이름을 입력하지 않았습니다!");
+  }
+}
+</script>
 
 </body>
 
+</html>
+
+로그인해주세요.
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>crew community</title>
+</head>
+<body>
+  <h1>crew community</h1>
+
+  <!-- 로그인 버튼 -->
+  <button onclick="login()">로그인</button>
+
+  <!-- 로그인 입력창 -->
+  <div id="loginDiv" style="display:none;">
+    <p>비밀번호 입력:</p>
+    <input type="password" id="pwInput" placeholder="비번">
+    <p>이름 입력:</p>
+    <input type="text" id="nameInput" placeholder="닉네임">
+    <button onclick="submitLogin()">입력</button>
+  </div>
+
+  <!-- 환영 메시지 -->
+  <p id="welcomeMsg"></p>
+
+  <!-- 커뮤니티 화면 -->
+  <div id="community" style="display:none;">
+    <h2>crew community 게시판</h2>
+    <textarea id="postInput" placeholder="글을 입력하세요"></textarea>
+    <button onclick="addPost()">글 올리기</button>
+    
+    <div id="posts">
+      <!-- 올라온 글들 -->
+    </div>
+  </div>
+
+  <script>
+    let userName = ""; // 로그인한 사용자 이름 저장
+
+    function login() {
+      document.getElementById('loginDiv').style.display = 'block';
+    }
+
+    function submitLogin() {
+      const pw = document.getElementById('pwInput').value;
+      const name = document.getElementById('nameInput').value;
+      const correctPw = "0315"; // 원하는 비번
+
+      if(pw === correctPw && name !== "") {
+        userName = name; // 이름 저장
+        document.getElementById('welcomeMsg').innerText = `환영합니다, ${userName}님!`;
+        document.getElementById('loginDiv').style.display = 'none';
+        document.getElementById('community').style.display = 'block';
+      } else {
+        alert("비밀번호가 틀렸거나 이름을 입력하지 않았습니다!");
+      }
+    }
+
+    function addPost() {
+      const postInput = document.getElementById('postInput');
+      const postText = postInput.value.trim();
+      if(postText !== "") {
+        const postsDiv = document.getElementById('posts');
+        const newPost = document.createElement('p');
+        newPost.innerText = `${userName}: ${postText}`; // 닉네임: 글 내용
+        postsDiv.appendChild(newPost);
+        postInput.value = "";
+      }
+    }
+  </script>
+</body>
 </html>
